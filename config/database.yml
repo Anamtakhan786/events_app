@@ -1,0 +1,21 @@
+development:
+  adapter: postgresql
+  database: events_app
+  host: localhost
+  timeout: 5000
+  username: postgres
+  password: amsterdam
+
+test:
+  adapter: postgresql
+  database: events_app_test
+  host: localhost
+  timeout: 5000
+  username: postgres
+  password: amsterdam
+
+production:
+  adapter: postgresql
+  database: events_app_production
+  host: localhost
+  timeout: 5000
