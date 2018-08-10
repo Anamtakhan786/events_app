@@ -1,7 +1,6 @@
 class ResponseController < ApplicationController
 	before_action :authenticate_user!
 	def create 
-			#p response_params
 			@response = current_user.responses.new(response_params)
 			if @response.save
 				flash[:notice]= "Your response is recorded"

@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-	
 	def new 
 		@events= Event.new
 	end
@@ -9,14 +8,13 @@ class EventsController < ApplicationController
         	flash[:notice] = "Your event is created"
         	redirect_to root_path
         else
-        	flash.now[:alert] = "Please fill all details"
+        	flash.now[:alert] = @events.errors.full_messages
         	render 'new'
         end
     end
     def show
         @events= current_user.events.all.order("event_date DESC")
     end
-	
 	private
 
   	def event_params

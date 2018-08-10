@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>EventsApp</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+   <head>
+      <title>EventsApp</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  </head>
-  <body>
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   </head>
+   <body>
       <%=render "shared/menu"%>
-      <% flash.each do |key, value| %>
-         <p class="alert alert-<%= bootstrap_key(key) %>"><%= value %></p>
+      <% flash.each do |key, message| %>
+         <% if message.class == Array %>
+            <p class="alert alert-<%= bootstrap_key(key) %>">
+               <% message.each do |msg| %>
+                  <%= msg %><br>
+               <% end %>
+            </p>
+         <% else %>
+            <p class="alert alert-<%= bootstrap_key(key) %>"><%= message%></p>
+         <% end %>
+         <script>
+           $(".alert" ).fadeOut(4000);
+           $(".alert-success" ).fadeOut(4000);
+           $(".alert-danger" ).fadeOut(4000);
+           $(".alert-notice" ).fadeOut(4000);
+         </script>
       <% end %>
       <div class="container">
      
          <%= yield %>
       </div>        
-  </body>
+   </body>
 </html>

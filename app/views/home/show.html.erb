@@ -1,0 +1,69 @@
+<div class= "container">
+	<div class="row">
+	   <div class="col-md-6 col-md-offset-3">
+	     <h1> Event Details</h1>
+			<div class="jumbotron">
+			  	<center>
+				   <div class="page-header">
+                 	<h1><em><%= @events.title%></em></h1>
+               </div>
+				   <p><b>Date: </b><%= @events.event_date.strftime("%a, %b %e, %Y")%></p>
+					<p><b>Description: </b><%= @events.description%></p>
+					<p><b>Address: </b><%= @events.address%></p>
+					<p><b>Seats: </b><%= @events.seats - going(@events).count %> Available(<%= @events.seats%> <b>Total</b>)</p>
+				</center>
+			</div>
+		   <div class="panel panel-success">
+  			   <div class="panel-heading">***GOING RESPONSES ***
+  				   <span class='badge'>Total: <%= going(@events).count%></span>
+  			   </div>
+     			<table class="table">
+       			<% going(@events).each_with_index do |d, index| %>
+       				<tbody>
+         				<tr>
+                  <td><%= index +=1 %>.</td>
+   	  						<td><%= d.user.name %></td>
+   	  						<td>(<%= d.user.email %>)</td>
+   	  						<td><%= d.created_at.strftime("Submitted At: %a, %b %e, %Y") %></td>
+     						</tr>
+     					</tbody>
+     				<% end %>
+       		</table>
+         </div>		
+       	<div class="panel panel-danger">
+     			<div class="panel-heading">***NOT GOING RESPONSES ***
+     				<span class='badge'>Total: <%= not_going(@events).count%></span>
+     			</div>
+     			<table class="table">
+       			<% not_going(@events).each_with_index do |d, index| %>
+       				<tbody>
+         				<tr>
+                  <td><%= index +=1 %>.</td>
+   	  						<td><%= d.user.name %></td>
+   	  						<td>(<%= d.user.email %>)</td>
+   	  						<td><%= d.created_at.strftime("Submitted At: %a, %b %e, %Y")%></td>
+     						</tr>
+     					</tbody>
+     				<% end %>
+       		</table>		
+       	</div>
+       	<div class="panel panel-warning">
+     			<div class="panel-heading">***MAY BE RESPONSES ***
+     				<span class='badge'>Total: <%= may_be(@events).count %></span>
+     			</div>
+     			<table class="table">
+       			<% may_be(@events).each_with_index do |d, index| %>
+       				<tbody>
+         				<tr>
+                    <td><%= index +=1 %>.</td> 
+      	  					<td><%= d.user.name %></td>
+      	  					<td>(<%= d.user.email %>)</td>
+      	  					<td><%= d.created_at.strftime("Submitted At: %a, %b %e, %Y")%></td>
+     						</tr>
+     					</tbody>
+     				<% end %>
+       		</table>		
+       	</div>
+      </div>
+  	</div>
+</div>
