@@ -9,7 +9,7 @@ class Event < ApplicationRecord
 	validates :seats , presence: true
 
 	def date_cannot_be_in_past
-	  errors.add(:event_date, "date can't be in the past") if
+	  errors.add(:event_date, "can't be in the past") if
       !event_date.blank? and event_date < Date.today
 	end
 end
