@@ -5,7 +5,7 @@ class Event < ApplicationRecord
 	validate :date_cannot_be_in_past
 
 	def date_cannot_be_in_past
-	  errors.add(:event_date, "can't be in the past") if
-      event_date.present? and event_date < Date.today
+		errors.add(:event_date, "can't be in the past") if
+		event_date.present? and event_date < Date.today
 	end
 end
