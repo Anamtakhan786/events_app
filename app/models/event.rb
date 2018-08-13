@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
 	belongs_to :user
 	has_many :responses ,dependent: :destroy
-	validates :title ,:description ,:address ,:event_date ,:seats , presence: true
+	validates :title,:description,:address,:event_date,:seats, presence: true
 	validate :date_cannot_be_in_past
 
 	def date_cannot_be_in_past
