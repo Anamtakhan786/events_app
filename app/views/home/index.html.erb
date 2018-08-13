@@ -6,12 +6,12 @@
 				<div class="jumbotron">
 			  		<center>
 				    	<div class="page-header">
-                 			<h1><em><%= event.title%></em></h1>
+                 			<h1><em><%= event.title.upcase%></em></h1>
                   		</div>
 				    	<p><b>Date: </b><%= event.event_date.strftime("%a, %b %e, %Y")%></p>
-					   <p><b>Description: </b><%= event.description%></p>
-					   <p><b>Address: </b><%= event.address%></p>
-					   <p><b>Seats: </b><%= event.seats - going(event).count %> Available(<%= event.seats%> <b>Total</b>)</p>
+					    <p><b>Description: </b><%= event.description%></p>
+					    <p><b>Address: </b><%= event.address%></p>
+					    <p><b>Seats: </b><%= event.seats - going(event).count %> Available(<%= event.seats%> <b>Total</b>)</p>
 					    		
 					   <%= link_to "Going <span class='badge'>#{going(event).count}</span>".html_safe, response_index_path(event_id: event.id, value:"going"), method: :post, class: "btn btn-primary btn-lg" %> 
 					   <%=link_to "Not Going <span class='badge'>#{not_going(event).count}</span>".html_safe ,response_index_path(event_id: event.id, value:"not going"),method: :post, class: " btn btn-danger btn-lg" %>

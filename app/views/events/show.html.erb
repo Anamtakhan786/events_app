@@ -6,7 +6,7 @@
 				<div class="jumbotron">
 			  		<center>
 				    	<div class="page-header">
-                 			<h1><em><%= event.title%></em></h1>
+                 			<h1><em><%= event.title.upcase%></em></h1>
                   		</div>
 				    	<p><b>Date: </b><%= event.event_date.strftime("%a, %b %e, %Y")%></p>
 					   <p><b>Description: </b><%= event.description%></p>
@@ -17,6 +17,7 @@
 					   <span class="btn btn-warning btn-lg" disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></span>
 					   </br></br>
 					   <%= link_to "Event details",details_path(event_id: event.id), class: "btn btn-info btn-lg"%>
+					   <%= link_to "delete", event, class: "btn btn-danger btn-lg" ,method: :delete, data: {confirm: "You sure?"}%>
 				   </center>
 				</div>
 			<%end%>

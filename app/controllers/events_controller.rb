@@ -1,19 +1,25 @@
 class EventsController < ApplicationController
 	def new 
-		@events= Event.new
+		@event= Event.new
 	end
 	def create
-		@events = current_user.events.build(event_params)
-		if @events.save
+		@event = current_user.events.build(event_params)
+		if @event.save
         	flash[:notice] = "Your event is created"
         	redirect_to root_path
         else
-        	flash.now[:alert] = @events.errors.full_messages
+        	flash.now[:alert] = @event.errors.full_messages
         	render 'new'
         end
     end
     def show
         @events= current_user.events.all.order("event_date DESC")
+    end
+    def destroy
+        @event = Event.find(params[:id])
+        @event.destroy
+        flash[:success] = "Event deleted"
+        redirect_to root_url
     end
 	private
 
