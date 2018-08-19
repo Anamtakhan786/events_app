@@ -2,23 +2,54 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<h1> All Events  </h1>
+			<%= will_paginate @events%>
+
 			<% @events.each do |event|%>
 				<div class="jumbotron">
 					<center>
 						<div class="page-header">
-							<h1><em><%= event.title.upcase%></em></h1>
+							<h2><em><%= event.title.upcase%></em></h2>
 						</div>
 						<p><b>Date: </b><%= event.event_date.strftime("%a, %b %e, %Y")%></p>
 						<p><b>Description: </b><%= event.description%></p>
 						<p><b>Address: </b><%= event.address%></p>
 						<p><b>Seats: </b><%= event.seats - going(event).count %> Available(<%= event.seats%> <b>Total</b>)</p>
-									
-						<%= link_to "Going <span class='badge'>#{going(event).count}</span>".html_safe, response_index_path(event_id: event.id, value:"going"), method: :post, class: "btn btn-primary btn-lg" %> 
-						<%=link_to "Not Going <span class='badge'>#{not_going(event).count}</span>".html_safe ,response_index_path(event_id: event.id, value:"not going"),method: :post, class: " btn btn-danger btn-lg" %>
-						<%=link_to "May be <span class='badge'>#{may_be(event).count}</span>".html_safe ,response_index_path(event_id: event.id, value:"may be"),method: :post, class: " btn btn-warning btn-lg" %>
-					</center>
+					</center>			
+						<%= link_to "Going <span class='badge'>#{going(event).count}</span>".html_safe, response_index_path(event_id: event.id, value:"going"), method: :post, class: "btn btn-primary " %> 
+						<%=link_to "Not Going <span class='badge'>#{not_going(event).count}</span>".html_safe ,response_index_path(event_id: event.id, value:"not going"),method: :post, class: " btn btn-danger " %>
+						<%=link_to "May be <span class='badge'>#{may_be(event).count}</span>".html_safe ,response_index_path(event_id: event.id, value:"may be"),method: :post, class: " btn btn-warning " %>
+						<a class="btn btn-success" role="button" data-toggle="collapse" href="#<%= event.id %>" aria-expanded="false" aria-controls="collapseExample">
+						Questions ?
+						</a>
+					<div class="collapse" id="<%= event.id %>">
+						<div class="well">
+							<%= form_for [event, event.questions.new] do |f| %>
+								<div class= "form-group">
+									<%= f.label :ques %><br/>
+									<%= f.text_area :ques, autofocus: true, class: 'form-control'%></br>
+									<%= f.submit "Ask", class: "btn btn-danger"%>
+								</div>
+							<% end %>
+						</div>
+					</div></br></br>
+					<% if event.questions.count> 0 %>
+						<a role="button" data-toggle="collapse" href="#collapse<%= event.id %>" aria-expanded="false" aria-controls="collapseExample">
+						Existing Questions
+						</a>
+						<div class="collapse" id="collapse<%= event.id %>">
+							<div class="well">
+								<% event.questions.all.each_with_index do |x, index| %>
+									<b>Ques <%= index +=1%>. <%= x.ques %></br></b>
+									<% if x.answer.present? %>
+									Ans. <%= x.answer.ans %></br>
+									<%end%>
+								<% end %>
+							</div>
+						</div> 
+					<% end %>
 				</div>
 			<%end%>
+			<%= will_paginate @events%>
 		</div>
 	</div>
 </div>

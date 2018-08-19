@@ -5,7 +5,7 @@
 			<div class="jumbotron">
 				<center>
 					<div class="page-header">
-						<h1><em><%= @event.title.upcase%></em></h1>
+						<h2><em><%= @event.title.upcase%></em></h2>
 					</div>
 					<p><b>Date: </b><%= @event.event_date.strftime("%a, %b %e, %Y")%></p>
 					<p><b>Description: </b><%= @event.description%></p>
@@ -19,7 +19,7 @@
 				</div>
 				<table class="table">
 					<% going(@event).each_with_index do |d, index| %>
-					 	<tbody>
+						<tbody>
 							<tr>
 								<td><%= index +=1 %>.</td>
 								<td><%= d.user.name %></td>
@@ -64,6 +64,58 @@
 					<% end %>
 				</table>		
 			</div>
+			
+			<% if @event.questions.count>0 %>
+				New Questions
+				<% @event.questions.each_with_index do |q, index|%>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Ques<%= index +=1%>. <%= q.ques%>
+						</div>
+						<!-- show ans -->
+						<div class= "panel-content">
+							<% if q.answer.present? %>
+								<div id= "hide-<%= q.answer.id %>">
+									<div class= "well class-m">
+										Ans. <%= q.answer.ans%>
+										</br>
+									</div></br>
+									<a class="btn btn-success" role="button" data-toggle="collapse" href="#collapse<%= q.answer.id %>" aria-expanded="false" aria-controls="collapseExample", onclick= "hideDiv('hide-<%= q.answer.id %>')"> 
+									Edit
+									</a>
+									<%= link_to "delete", event_question_answer_path(@event.id, q.id, q.answer.id), class: "btn btn-danger", method: :delete, data: {confirm: "You sure?"}%>
+								</div>
+								<!--answer update form -->
+								<div class="collapse" id="collapse<%= q.answer.id %>">
+									<div class="well class-m">
+										<%= form_for [@event, q, q.answer],html: { method: :put } do |f|%>
+											<div class= "form-group">
+												<%= f.label :ans %><br/>
+												<%= f.text_area :ans, autofocus: true, class: 'form-control'%></br>
+												<%= f.submit "Update", class: "btn btn-primary"%>
+												<a class="btn btn-danger" role="button" data-toggle="collapse" href="#collapse<%= q.answer.id %>" aria-expanded="false" aria-controls="collapseExample", onclick= "hideDiv('hide-<%= q.answer.id %>')">
+												Cancel
+												</a>
+											</div>
+										<% end %>
+									</div>
+								</div>
+								<% else %>
+								<!-- build ans form -->
+								<%= form_for [@event, q, q.build_answer] do |f|%>
+									<div class="well class-m">
+										<div class= "form-group">
+											<%= f.label :ans %><br/>
+											<%= f.text_area :ans, autofocus: true, class: 'form-control'%></br>
+											<%= f.submit "Answer", class: "btn btn-primary"%>
+										</div>
+									</div>
+								<% end %>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
 		</div>
 	</div>
 </div>

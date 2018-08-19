@@ -2,11 +2,12 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<h1> My Events  </h1>
+			<%= will_paginate %>
 			<% @events.each do |event|%>
 				<div class="jumbotron">
 					<center>
 						<div class="page-header">
-							<h1><em><%= event.title.upcase%></em></h1>
+							<h2><em><%= event.title.upcase%></em></h2>
 						</div>
 						<p><b>Date: </b><%= event.event_date.strftime("%a, %b %e, %Y")%></p>
 						<p><b>Description: </b><%= event.description%></p>
@@ -17,10 +18,12 @@
 						<span class="btn btn-warning btn-lg" disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></span>
 						</br></br>
 						<%= link_to "Event details",details_path(event_id: event.id), class: "btn btn-info btn-lg"%>
+						<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success btn-lg"%>
 						<%= link_to "delete", event, class: "btn btn-danger btn-lg" ,method: :delete, data: {confirm: "You sure?"}%>
 					</center>
 				</div>
 			<%end%>
+			<%= will_paginate %>
 		</div>
 	</div>
 </div>
