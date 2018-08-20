@@ -4,26 +4,27 @@
 			<h1> My Events  </h1>
 			<%= will_paginate %>
 			<% @events.each do |event|%>
-				<div class="jumbotron">
-					<center>
-						<div class="page-header">
-							<h2><em><%= event.title.upcase%></em></h2>
+				<% if event.event_date >= Date.today%>
+					<div class="jumbotron class-j">
+						<div align="left">
+							<div class="page-header", align="center">
+								<h2><em><%= event.title.upcase%></em></h2>
+							</div>
+							<p><b>Date: </b><%= event.event_date.strftime("%a, %b %e, %Y")%></p>
+							<p><b>Description: </b><%= event.description%></p>
+							<p><b>Address: </b><%= event.address%></p>
+							<p><b>Seats: </b><%= event.seats - going(event).count %> Available(<%= event.seats%> <b>Total</b>)</p>
+							<button class="btn btn-primary " disabled="true"> Going <span class='badge'><%= going(event).count %> </span></button>
+							<button class="btn btn-danger " disabled="true"> Not going <span class='badge'><%= not_going(event).count%> </span></button>
+							<button class="btn btn-warning " disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></button>
+							</br></br>
+							<%= link_to "View responses",details_path(event_id: event.id), class: "btn btn-info "%>
+							<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success "%>
+							<p align="right"><%= link_to "Delete Event", event, class: "btn btn-danger" ,method: :delete, data: {confirm: "You sure?"}%></p>
 						</div>
-						<p><b>Date: </b><%= event.event_date.strftime("%a, %b %e, %Y")%></p>
-						<p><b>Description: </b><%= event.description%></p>
-						<p><b>Address: </b><%= event.address%></p>
-						<p><b>Seats: </b><%= event.seats - going(event).count %> Available(<%= event.seats%> <b>Total</b>)</p>
-						<span class="btn btn-primary " disabled="true"> Going <span class='badge'><%= going(event).count %> </span></span>
-						<span class="btn btn-danger " disabled="true"> Not going <span class='badge'><%= not_going(event).count%> </span></span>
-						<span class="btn btn-warning " disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></span>
-						</br></br>
-						<%= link_to "Event details",details_path(event_id: event.id), class: "btn btn-info "%>
-						<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success "%>
-						<%= link_to "delete", event, class: "btn btn-danger" ,method: :delete, data: {confirm: "You sure?"}%>
-					</center>
-				</div>
+					</div>
+				<% end %>
 			<%end%>
-			<%= will_paginate %>
 		</div>
 	</div>
 </div>

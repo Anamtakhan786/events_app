@@ -15,7 +15,7 @@ class EventsController < ApplicationController
       render 'new'
     end
   end
-
+  
   def show
     @events = current_user.events.order('event_date DESC').paginate(page: params[:page], per_page: 5)
   end
