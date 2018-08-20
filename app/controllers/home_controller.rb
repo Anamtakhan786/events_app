@@ -2,7 +2,7 @@
 
 class HomeController < ApplicationController
   def index
-    @events = Event.paginate(page: params[:page], per_page: 5).order('event_date DESC')
+    @events = Event.order('event_date DESC').paginate(page: params[:page], per_page: 5)
   end
 
   def show

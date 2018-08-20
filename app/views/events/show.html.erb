@@ -13,13 +13,13 @@
 						<p><b>Description: </b><%= event.description%></p>
 						<p><b>Address: </b><%= event.address%></p>
 						<p><b>Seats: </b><%= event.seats - going(event).count %> Available(<%= event.seats%> <b>Total</b>)</p>
-						<span class="btn btn-primary btn-lg" disabled="true"> Going <span class='badge'><%= going(event).count %> </span></span>
-						<span class="btn btn-danger btn-lg" disabled="true"> Not going <span class='badge'><%= not_going(event).count%> </span></span>
-						<span class="btn btn-warning btn-lg" disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></span>
+						<span class="btn btn-primary " disabled="true"> Going <span class='badge'><%= going(event).count %> </span></span>
+						<span class="btn btn-danger " disabled="true"> Not going <span class='badge'><%= not_going(event).count%> </span></span>
+						<span class="btn btn-warning " disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></span>
 						</br></br>
-						<%= link_to "Event details",details_path(event_id: event.id), class: "btn btn-info btn-lg"%>
-						<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success btn-lg"%>
-						<%= link_to "delete", event, class: "btn btn-danger btn-lg" ,method: :delete, data: {confirm: "You sure?"}%>
+						<%= link_to "Event details",details_path(event_id: event.id), class: "btn btn-info "%>
+						<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success "%>
+						<%= link_to "delete", event, class: "btn btn-danger" ,method: :delete, data: {confirm: "You sure?"}%>
 					</center>
 				</div>
 			<%end%>

@@ -17,7 +17,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @events = current_user.events.paginate(page: params[:page], per_page: 5).order('event_date DESC')
+    @events = current_user.events.order('event_date DESC').paginate(page: params[:page], per_page: 5)
   end
 
   def destroy
