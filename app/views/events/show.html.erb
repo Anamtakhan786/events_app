@@ -19,8 +19,11 @@
 							<button class="btn btn-warning " disabled="true"> May be <span class='badge'><%= may_be(event).count%> </span></button>
 							</br></br>
 							<%= link_to "View responses",details_path(event_id: event.id), class: "btn btn-info "%>
-							<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success "%>
-							<p align="right"><%= link_to "Delete Event", event, class: "btn btn-danger" ,method: :delete, data: {confirm: "You sure?"}%></p>
+							<%= link_to "New Questions <span class='badge'>#{unanswered_ques(event)}</span>".html_safe,details_path(event_id: event.id), class: "btn btn-success "%></br></br>
+							<p align="right">
+							<%= link_to "Edit Event",edit_event_path(event), class: "btn btn-link"%> 
+							<%= link_to "Delete Event", event, class: "btn btn-link" ,method: :delete, data: {confirm: "You sure?"}%>
+							</p>
 						</div>
 					</div>
 				<% end %>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
   get'/events', to: 'events#show', as: 'events'
   get'/details', to: 'home#show', as: 'details'
-  resources :events, only: %i[create new destroy] do
+  resources :events, only: %i[create new destroy edit update] do
     resources :questions, only: %i[create] do
       resources :answers, only: %i[create destroy update]
     end
